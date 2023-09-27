@@ -26,14 +26,35 @@ private:
 public:
     LinkedList() : head(nullptr) {}
 
-    void insert(Dog* dog) {
-        ...
+    void printByOwner(bool hasOwner) {
+        Node* current = head;
+       
+            while (current) {
+                if (current->data->hasOwner == hasOwner) {
+                std::cout << current->data->name << ", ";
+                }
+                current = current->next;
+            }
+       
+            std::cout << std::endl;
+       
     }
 
-    void display() {
-        ...
+    void insert(Dog* newDog) {
+        Node* newNode = new Node(newDog);
+
+        if (!head) {
+            head = newNode;
+        }
+        else {
+            Node* current = head;
+            while (current->next) {
+                current = current->next;
+            }
+            current->next = newNode;
+        }
     }
-    ...
+
 };
 
 int main() {
@@ -42,8 +63,10 @@ int main() {
     dogList.insert(new Dog(2, "Max", false, "Labrador"));
     dogList.insert(new Dog(5, "Lucy", true, "Poodle"));
 
-    std::cout << "List of Dogs:" << std::endl;
-    dogList.display();
+    std::cout << "Dogs with owner:" << std::endl;
+    dogList.printByOwner(true);
+    std::cout << "Dogs without owner:" << std::endl;
+    dogList.printByOwner(false);
 
     return 0;
 }
